@@ -29,7 +29,12 @@ sap.ui.controller("com.meui5ncrud.app.controller.LandingPage", {
 	handleSearch:function(oEvent){
 
 		var empdata ;
-    var aData = jQuery.ajax({
+		
+		var oRowContext = oEvent.getParameter("rowContext");
+		var oContextObject = oRowContext.getObject();
+		console.log(oContextObject);
+		
+		var aData = jQuery.ajax({
             type : "GET",
             contentType : "application/json",
             url : "/employee/" +sap.ui.getCore().byId('ip_sEmpId').getValue(),
@@ -40,18 +45,24 @@ sap.ui.controller("com.meui5ncrud.app.controller.LandingPage", {
                }
         });
 
-sap.ui.getCore().byId('slbl_Code').setVisible(true);
-sap.ui.getCore().byId('slbl_Rekening').setVisible(true);
-sap.ui.getCore().byId('slbl_Tegenrekening').setVisible(true);
-sap.ui.getCore().byId('slbl_Bedrag').setVisible(true);
+sap.ui.getCore().byId('slbl_datum').setVisible(true);
+sap.ui.getCore().byId('slbl_name').setVisible(true);
+sap.ui.getCore().byId('slbl_rekening').setVisible(true);
+sap.ui.getCore().byId('slbl_tegenrekening').setVisible(true);
+sap.ui.getCore().byId('slbl_code').setVisible(true);
+sap.ui.getCore().byId('slbl_afBij').setVisible(true);
+sap.ui.getCore().byId('slbl_mutatieSoort').setVisible(true);
+sap.ui.getCore().byId('slbl_mededelingen').setVisible(true);
 
-sap.ui.getCore().byId('s_txtCode').setText(empdata[0].Code);
+sap.ui.getCore().byId('s_txtDatum').setText(empdata[0].Datum);
+sap.ui.getCore().byId('s_txtName').setText(empdata[0].Name);
 sap.ui.getCore().byId('s_txtRekening').setText(empdata[0].Rekening);
 sap.ui.getCore().byId('s_txtTegenrekening').setText(empdata[0].TegenRekening);
-sap.ui.getCore().byId('s_txtBedrag').setText(empdata[0].Bedrag);
+sap.ui.getCore().byId('s_txtCode').setText(empdata[0].Code);
+sap.ui.getCore().byId('s_txtAfBij').setText(empdata[0].AfBij);
+sap.ui.getCore().byId('s_txtMutatieSoort').setText(empdata[0].MutatieSoort);
+sap.ui.getCore().byId('s_txtMededelingen').setText(empdata[0].Mededelingen);
 
-
- 
 
 	},
 
@@ -183,16 +194,25 @@ handlebtn_Save:function(oEvent){
 	rowSelect:function(e)
 	{
 		var idx = e.getParameter('rowIndex');
-    	var datum = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).name);
-		var rekening = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).id);
-		var tegenrekening = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).designation);
-		var code = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).Rekening);
-		var bedrag = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).gender);
-    	sap.ui.getCore().byId('ip_Datum').setValue(EmpId);
-		sap.ui.getCore().byId('ip_Rekening').setValue(name);
-		sap.ui.getCore().byId('ip_Tegenrekening').setValue(Rekening);
-		sap.ui.getCore().byId('ip_Code').setValue(Desig);
-		sap.ui.getCore().byId('ip_Bedrag').setValue(gender);
+    	var datum = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).datum);
+		var name = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).name);
+		var rekening = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).rekening);
+		var tegenrekening = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).tegenrekening);
+		var code = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).code);
+		var afBij = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).afBij);
+    	var bedrag = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).bedrag);
+		var mutatieSoort = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).mutatieSoort);
+		var mededelingen = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).mededelingen);
+
+    	sap.ui.getCore().byId('ip_Datum').setValue(datum);
+		sap.ui.getCore().byId('ip_Name').setValue(name);
+		sap.ui.getCore().byId('ip_Rekening').setValue(rekening);
+		sap.ui.getCore().byId('ip_Tegenrekening').setValue(tegenrekening);
+		sap.ui.getCore().byId('ip_Code').setValue(code);
+		sap.ui.getCore().byId('ip_AfBij').setValue(afBij);
+		sap.ui.getCore().byId('ip_Bedrag').setValue(bedrag);
+		sap.ui.getCore().byId('ip_MutatieSoort').setValue(mutatieSoort);
+		sap.ui.getCore().byId('ip_Mededelingen').setValue(mededelingen);
        landingpagecontroller.CRUDselection.open();
        sap.ui.getCore().byId('ip_EmpId').setEnabled(false);
 

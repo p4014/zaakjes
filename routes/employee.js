@@ -41,11 +41,14 @@ exports.updateEmp = function(req, res) {
         });
     });
 }
-exports.findById= function (req,res) {
-var empId = req.params.id;
-db.collection('BankZaken',function (err,collection) {
-    collection.find( { id: id } ).toArray(function(err, items) {
-            res.send(items);
-        });
-  })
-}
+exports.findByDate= function (req,res) {
+	var empId = req.params.Datum;
+	console.log(empId);
+	console.log(req)
+	db.collection('BankZaken',function (err,collection) {
+		   collection.find( {  Datum: empId } ).toArray(function(err, items) {
+	            res.send(items);
+	        });
+		
+		})
+	}

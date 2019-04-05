@@ -22,7 +22,7 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 		var ip_Gender = new sap.m.Input('ip_Gender',{value:""});
 		
     	var lb_EmpId = new sap.m.Label('lb_EmpId',{text:"Id",labelFor:"ip_EmpId"});
-		var lb_sEmpId = new sap.m.Label('lb_sEmpId',{text:"Id",labelFor:"ip_sEmpId"});
+		var lb_sEmpId = new sap.m.Label('lb_sEmpId',{text:"Datum",labelFor:"ip_sEmpId"});
 		var lb_Name = new sap.m.Label('lb_Name',{text:"Name",labelFor:"ip_Name"});
 		var lb_DOB = new sap.m.Label('lb_DOB',{text:"DOB",labelFor:"ip_DOB"});
 		var lb_Desig = new sap.m.Label('lb_Desig',{text:"Designation",labelFor:"ip_Desig"});
@@ -63,13 +63,16 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 			content:[new sap.ui.core.Title({text:"Insert Employee Data"}),
 			         lb_cEmpId,ip_cEmpId,lb_cName,ip_cName,lb_cDOB,ip_cDOB,lb_cDesig,ip_cDesig,lb_cGender,ip_cGender,
 			         new sap.m.Button('empadd',{text:'Create',press:oController.handleOperationBtncreate}),
-			         new sap.ui.core.Title({text:"Get Employee Data"}),lb_sEmpId,ip_sEmpId,
+			         new sap.ui.core.Title({text:"Get Transaction"}),lb_sEmpId,ip_sEmpId,
 			         new sap.m.Button('empsearch',{text:'Search',press:oController.handleSearch}),
-			         new sap.m.Label('slbl_name',{text:"Name",visible:false}), new sap.m.Text('s_txtName',{text:''}),
-			         new sap.m.Label('slbl_dob',{text:"dob",visible:false}),new sap.m.Text('s_txtDob',{text:''}),
-			         new sap.m.Label('slbl_desig',{text:"Designation",visible:false}),new sap.m.Text('s_txtdesig',{text:''}),
-			         new sap.m.Label('slbl_gender',{text:"Gender",visible:false}),new sap.m.Text('s_txtgender',{text:''})
-	
+			         new sap.m.Label('slbl_datum',{text:"Datum",visible:false}), new sap.m.Text('s_txtDatum',{text:''}),
+			         new sap.m.Label('slbl_name',{text:"Name",visible:false}),new sap.m.Text('s_txtName',{text:''}),
+			         new sap.m.Label('slbl_rekening',{text:"Rekening",visible:false}),new sap.m.Text('s_txtRekening',{text:''}),
+			         new sap.m.Label('slbl_tegenrekening',{text:"Tegenrekening",visible:false}),new sap.m.Text('s_txtTegenrekening',{text:''}),
+					 new sap.m.Label('slbl_code',{text:"Code",visible:false}), new sap.m.Text('s_txtCode',{text:''}),
+					 new sap.m.Label('slbl_afBij',{text:"AfBij",visible:false}),new sap.m.Text('s_txtAfBij',{text:''}),
+					 new sap.m.Label('slbl_mutatieSoort',{text:"MutatieSoort",visible:false}),new sap.m.Text('s_txtMutatieSoort',{text:''}),
+					 new sap.m.Label('slbl_mededelingen',{text:"Mededelingen",visible:false}),new sap.m.Text('s_txtMededelingen',{text:''})
 			         ]
 		});
 		
@@ -87,18 +90,20 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 					 
 			})
 
+	//table
 
-//Table for MongoDB data
-
-		var txt_Code = new sap.m.Text('txt_Code',{text:"{\"Code\"}"});
-		var txt_Name = new sap.m.Text('txt_Name',{text:"{\"MutatieSoort\"}"});//"Naam / Omschrijving"
+		var txt_Datum = new sap.m.Text('txt_Datum',{text:"{\"Datum\"}"});
+		var txt_Name = new sap.m.Text('txt_Name',{text:"{\"Naam %2F Omschrijving\"}"});//"Naam / Omschrijving"
 		var txt_Rekening = new sap.m.Text('txt_Rekening',{text:"{\"Rekening\"}"});
 		var txt_TegenRekening = new sap.m.Text('txt_TegenRekening',{text:"{\"Tegenrekening\"}"});
+		var txt_Code = new sap.m.Text('txt_Code',{text:"{\"Code\"}"});
+		var txt_AfBij = new sap.m.Text('txt_AfBij',{text:"{\"Af Bij\"}"});
 		var txt_Bedrag = new sap.m.Text('txt_Bedrag',{text:"{\"Bedrag (EUR)\"}"});
-		
+		var txt_MutatieSoort = new sap.m.Text('txt_MutatieSoort',{text:"{\"MutatieSoort\"}"});
+		var txt_Mededelingen = new sap.m.Text('txt_Mededelingen',{text:"{\"Mededelingen\"}"});
 
-		 var oIdCol=new sap.ui.table.Column("Coln_1",{label:'Bedrag',
-				template: txt_Bedrag,
+		 var oIdCol=new sap.ui.table.Column("Coln_1",{label:'Datum',
+				template: txt_Datum,
 				});
 		
 		 var oIdCol2=new sap.ui.table.Column("Coln_2",{label:'Naam / Omschrijving',
@@ -117,11 +122,26 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 				template: txt_Code,
 				});
 		 
+		 var oIdCol6=new sap.ui.table.Column("Coln_6",{label:'Af Bij',
+				template: txt_AfBij,
+				});
+		 
+		 var oIdCol7=new sap.ui.table.Column("Coln_7",{label:'Bedrag',
+				template: txt_Bedrag,
+				});
+		 
+		 var oIdCol8=new sap.ui.table.Column("Coln_8",{label:'MutatieSoort',
+				template: txt_MutatieSoort,
+				});
+		 
+		 var oIdCol9=new sap.ui.table.Column("Coln_9",{label:'Mededelingen',
+				template: txt_Mededelingen,
+				});
 		
 		oController.oTable = new sap.ui.table.Table('tbl_odata',{
-            title : "Data in MongoDB",
-            visibleRowCount : 6,
-            columns:[oIdCol2,oIdCol3,oIdCol4,oIdCol5,oIdCol],
+            title : "Transacties",
+            visibleRowCount : 20,
+            columns:[oIdCol,oIdCol2,oIdCol3,oIdCol4,oIdCol5,oIdCol6,oIdCol7,oIdCol8,oIdCol9],
             selectionMode : sap.ui.table.SelectionMode.Single,
             selectionBehavior: sap.ui.table.SelectionBehavior.Row,
             rowSelectionChange :oController.rowSelect

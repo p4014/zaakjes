@@ -9,7 +9,7 @@ app.configure(function () {
 app.get('/employees', emp.findAll);
 app.post('/employee', emp.addEmp);
 app.put('/employee/:id', emp.updateEmp);
-app.get('/employee/:id', emp.findById);
+app.get('/employee/:Datum', emp.findByDate);
 app.delete('/employee/:id', emp.deleteEmp);
 app.listen(3000);
 console.log('Listening on port 3000...');
