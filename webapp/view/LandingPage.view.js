@@ -11,9 +11,9 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 	/** Is initially called once after the Controller has been instantiated. It is the place where the UI is constructed. 
 	* Since the Controller is given to this method, its event handlers can be attached right away. 
 	* @memberOf views.LandingPage
-	*/ 
+	 */
 	createContent : function(oController) {
-
+/*
 		var ip_EmpId = new sap.m.Input('ip_EmpId',{value:"",enabled:true});
 		var ip_sEmpId = new sap.m.Input('ip_sEmpId',{value:""});
 		var ip_Name = new sap.m.Input('ip_Name',{value:""});
@@ -76,7 +76,7 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 			         ]
 		});
 		
-
+	
 //Dialog for employee update delete
 	oController.CRUDselection = new sap.m.Dialog("CRUDselection", {
 				title: "Employee",
@@ -89,9 +89,10 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 	
 					 
 			})
-
+*/
 	//table
-
+		var search_date = new sap.m.SearchField('search',{liveChange: oController.onFilterTransactions});
+		
 		var txt_Datum = new sap.m.Text('txt_Datum',{text:"{\"Datum\"}"});
 		var txt_Name = new sap.m.Text('txt_Name',{text:"{\"Naam %2F Omschrijving\"}"});//"Naam / Omschrijving"
 		var txt_Rekening = new sap.m.Text('txt_Rekening',{text:"{\"Rekening\"}"});
@@ -103,7 +104,7 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
 		var txt_Mededelingen = new sap.m.Text('txt_Mededelingen',{text:"{\"Mededelingen\"}"});
 
 		 var oIdCol=new sap.ui.table.Column("Coln_1",{label:'Datum',
-				template: txt_Datum,
+				template: txt_Datum, filterOperator : sap.ui.model.FilterOperator.StartsWith,
 				});
 		
 		 var oIdCol2=new sap.ui.table.Column("Coln_2",{label:'Naam / Omschrijving',
@@ -142,14 +143,23 @@ sap.ui.jsview("com.meui5ncrud.app.view.LandingPage", {
             title : "Transacties",
             visibleRowCount : 20,
             columns:[oIdCol,oIdCol2,oIdCol3,oIdCol4,oIdCol5,oIdCol6,oIdCol7,oIdCol8,oIdCol9],
+            toolbar: search_date,
             selectionMode : sap.ui.table.SelectionMode.Single,
             selectionBehavior: sap.ui.table.SelectionBehavior.Row,
-            rowSelectionChange :oController.rowSelect
+            
+            rowSelectionChange: oController.rowSelect
 				});
-
+		oController.oTable.setSelectionMode(sap.ui.table.SelectionMode.Multi);
+		oController.oTable.attachFilter(function(oEvent) {
+			var oMessage = new sap.ui.commons.Message({
+				type: sap.ui.commons.MessageType.Success, 
+				text: "Filter column: " + oEvent.getParameter("column").getId() + " - " + oEvent.getParameter("value")
+			});
+			oMsgBar.addMessages([oMessage]);
+		});
 		
 	
-		var ele = [ Emp_cForm, oController.oTable]
+		var ele = [ /*Emp_cForm,*/ oController.oTable]
 		return ele;
 
 

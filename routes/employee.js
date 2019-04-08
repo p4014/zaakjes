@@ -1,7 +1,10 @@
+var transactions = {"Transactions":{ }};
 exports.findAll = function(req, res) {
     db.collection('BankZaken', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            res.send(items);
+        	transactions.Transactions = items;
+        	
+            res.send(transactions);
         });
     });
 };

@@ -56,7 +56,12 @@
 				"settings": {
 					"bundleName": "com.meui5ncrud.app.i18n.i18n"
 				}
-			}
+			},
+	 	 	"transactions": {
+				"uri": "http://localhost:3000/employees/",
+				"type": "sap.ui.model.json.JSONModel"
+				
+	  		}
 		},
 		"resources": {
 			"css": [{
@@ -65,7 +70,7 @@
 		},
 		"routing": {
 			"config": {
-				"viewType": "JS",
+				"viewType": "XML",
 				"routerClass": "sap.m.routing.Router",
 				"viewPath": "com.meui5ncrud.app.view",
 				"controlId": "appView",
@@ -74,11 +79,11 @@
 
 			},
 			"routes": [{
-				"name": "LandingPage",
+				"name": "List",
 				"pattern": "",
 				"greedy": false,
 				"target": [
-					"LandingPage"
+					"List"
 				]
 			}, {
 				"name": "Details",
@@ -90,11 +95,11 @@
 			}
 			],
 			"targets": {
-				"LandingPage": {
-					"viewType": "JS",
+				"List": {
+					"viewType": "XML",
 					"transition": "slide",
 					"clearAggregation": true,
-					"viewName": "LandingPage"
+					"viewName": "List"
 				},
 				"Details": {
 					"viewType": "JS",

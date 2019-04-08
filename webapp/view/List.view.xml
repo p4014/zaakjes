@@ -1,0 +1,56 @@
+<mvc:View
+   controllerName="com.meui5ncrud.app.controller.List"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   
+   <List
+      id="transactionsList"
+      class="sapUiResponsiveMargin"
+      width="auto"
+      items="{transactions>/Transactions}" >
+      <headerToolbar>
+         <Toolbar>
+            <Title text="{i18n>invoiceListTitle}"/>
+            <ToolbarSpacer/>
+            <SearchField width="50%" search=".onFilterInvoices" 
+            placeholder="Datum (YYYYMMDD)"/>
+         </Toolbar>
+      </headerToolbar>
+      <items>
+         <ObjectListItem
+		title="{transactions>Naam Omschrijving}"
+		number="{
+				parts:[
+					{path:'transactions>Bedrag (EUR)'},
+					{path:'transactions>Af Bij'}
+				],
+				formatter: '.formatNumber'
+				
+				}"
+		numberState="{= ${transactions>Af Bij} === 'Af' ? 'Error' : 'Success' }"
+		>
+		<attributes>
+			<ObjectAttribute title= 'Van'
+			text='{transactions>Rekening}'/>
+			<ObjectAttribute 
+			title='Naar'
+			text='{transactions>Tegenrekening}'
+			/>
+			</attributes>
+		<firstStatus>
+			<ObjectStatus 
+			title='Datum'
+			text='{transactions>Datum}'
+			/>
+		</firstStatus>
+		<secondStatus>
+			<ObjectStatus
+			title='Mutatie soort'
+			text='{transactions>MutatieSoort}'
+			/>
+		</secondStatus>
+		</ObjectListItem>
+
+	</items>
+   </List>
+</mvc:View>

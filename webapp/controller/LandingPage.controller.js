@@ -191,9 +191,9 @@ handlebtn_Save:function(oEvent){
 
 	
 
-	rowSelect:function(e)
+	rowSelect:function(oEvt)
 	{
-		var idx = e.getParameter('rowIndex');
+		/*var idx = e.getParameter('rowIndex');
     	var datum = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).datum);
 		var name = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).name);
 		var rekening = (sap.ui.getCore().getModel('model_table').getProperty('/modelData/'+idx).rekening);
@@ -214,7 +214,22 @@ handlebtn_Save:function(oEvent){
 		sap.ui.getCore().byId('ip_MutatieSoort').setValue(mutatieSoort);
 		sap.ui.getCore().byId('ip_Mededelingen').setValue(mededelingen);
        landingpagecontroller.CRUDselection.open();
-       sap.ui.getCore().byId('ip_EmpId').setEnabled(false);
+       sap.ui.getCore().byId('ip_EmpId').setEnabled(false);*/
+		
+		var oList = oEvt.getSource();
+		var oLabel = this.byId("Datum");
+		var oInfoToolbar = this.byId("Transacties");
+
+		// With the 'getSelectedContexts' function you can access the context paths
+		// of all list items that have been selected, regardless of any current
+		// filter on the aggregation binding.
+		var aContexts = oList.getSelectedContexts(true);
+
+		// update UI
+		var bSelected = (aContexts && aContexts.length > 0);
+		var sText = (bSelected) ? aContexts.length + " selected" : null;
+		oInfoToolbar.setVisible(bSelected);
+		oLabel.setText(sText);
 
 
 	},
@@ -241,6 +256,20 @@ getData:function()
 		oTable.bindRows("/modelData");	
 
 
+},
+onFilterTransactions:function(oEvt)
+{
+	var aFilters = [];
+	var sQuery = oEvt.getSource().getValue();
+	if (sQuery && sQuery.length > 0) {
+		var filter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sQuery);
+		aFilters.push(filter);
+	}
+
+	// update list binding
+	var list = sap.ui.getCore().byId("tbl_odata");
+	var binding = list.bindRows("/modelData");
+	binding.filter(aFilters, "Application");
 }
 
 	
