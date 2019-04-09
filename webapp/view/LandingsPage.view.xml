@@ -1,0 +1,28 @@
+<mvc:View
+   controllerName="com.meui5ncrud.app.controller.LandingsPages"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   displayBlock="true">
+    <App>
+      <pages>
+         <Page title="{i18n>homePageTitle}"
+            	showHeader="false"
+				enableScrolling="false" >
+				<TileContainer
+					id="container"
+					tileDelete="handleTileDelete"
+					tiles="{/TileCollection}">
+					<StandardTile
+						icon="{icon}"
+						type="{type}"
+						number="{number}"
+						numberUnit="{numberUnit}"
+						title="{title}"
+						info="{info}"
+						infoState="{infoState}" 
+						press="onPress"/>
+				</TileContainer>
+         	</Page>
+      </pages>
+   </App>
+</mvc:View>

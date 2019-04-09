@@ -79,33 +79,46 @@
 
 			},
 			"routes": [{
-				"name": "List",
+				"name": "LandingsPage",
 				"pattern": "",
+				"greedy": false,
+				"target": [
+					"LandingsPage"
+				]
+			}, {
+				"name": "List",
+				"pattern": "List/",
 				"greedy": false,
 				"target": [
 					"List"
 				]
 			}, {
-				"name": "Details",
-				"pattern": "Details",
+				"name": "JaarOpgave",
+				"pattern": "JaarOpgave/",
 				"greedy": false,
 				"target": [
-					"Details"
+					"JaarOpgave"
 				]
-			}
+				}
 			],
 			"targets": {
+				"LandingsPage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "LandingsPage"
+				},
 				"List": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearAggregation": true,
 					"viewName": "List"
 				},
-				"Details": {
-					"viewType": "JS",
+				"JaarOpgave": {
+					"viewType": "XML",
 					"transition": "slide",
 					"clearAggregation": true,
-					"viewName": "Details"
+					"viewName": "JaarOpgave"
 				}
 				
 			}

@@ -1,0 +1,10 @@
+<mvc:View
+   controllerName="com.meui5ncrud.app.controller.JaarOpgave"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   displayBlock="true">
+   <Page showNavButton="true"
+		navButtonPress=".onNavBack">
+		
+	</Page>   
+</mvc:View>

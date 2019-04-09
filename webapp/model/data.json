@@ -1,0 +1,14 @@
+{
+	"TileCollection" : [
+		{
+			"icon" : "sap-icon://area-chart",
+			"title" : "Jaaropgave",
+			"route" : "JaarOpgave"
+		},
+		{
+			"icon" : "sap-icon://list",
+			"title" : "Transacties",
+			"route" : "List"
+		}
+	]
+}
