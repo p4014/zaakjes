@@ -7,6 +7,7 @@ app.configure(function () {
     app.use(express.bodyParser());
 });
 app.get('/employees', emp.findAll);
+app.get('/somPerMaand', emp.cumulate);
 app.post('/employee', emp.addEmp);
 app.put('/employee/:id', emp.updateEmp);
 app.get('/employee/:Datum', emp.findByDate);

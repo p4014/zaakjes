@@ -1,6 +1,24 @@
 var transactions = {"Transactions":{ }};
 exports.findAll = function(req, res) {
     db.collection('BankZaken', function(err, collection) {
+    	collection.find().forEach(function(data) {
+    		var date = data.Datum;
+    		var year = date.slice(0,4);
+    		var month = date.slice(4,6);
+    		var day = date.slice(6,8)
+    		var newDate = year.concat('-').concat(month).concat('-').concat(day);
+    		console.log(newDate);
+    		
+    		data.Datum = new Date(newDate);
+    		collection.save(data)
+    	    collection.update({
+    	        "_id": data._id,
+    	    }, {
+    	        "$set": {
+    	            "Bedrag": parseFloat(data.Bedrag)
+    	        }
+    	    });
+    	});
         collection.find().toArray(function(err, items) {
         	transactions.Transactions = items;
         	
@@ -8,6 +26,37 @@ exports.findAll = function(req, res) {
         });
     });
 };
+exports.cumulate = function(req, res) {
+ var aggregate =  db.collection('BankZaken');
+ 	aggregate.aggregate([
+ 	  {$match:{
+ 		  Bedrag : {
+ 			 $exists : true
+ 		  }
+ 	  }},
+ 	  {
+ 	    $group: {
+ 	       _id: {
+ 	    	   rekening: "$Rekening",
+ 	    	   af_Bij: "$Af Bij",
+ 	    		 ord_date: {
+	              month: { $month: "$Datum" },
+	              year: { $year: "$Datum"}
+	 	    	}
+ 	       },
+ 	       total: {
+ 	         $sum: "$Bedrag"
+ 	       }
+ 	     
+ 		}
+ 	   }]).toArray(function(err, items){
+ 	 transactions.Transactions = items;
+	 console.log(items);
+        });
+ 	
+ 	res.send(transactions);
+};
+
 exports.addEmp = function(req, res) {
     var emp = req.body;
     console.log('Adding record: ' + JSON.stringify(emp));
