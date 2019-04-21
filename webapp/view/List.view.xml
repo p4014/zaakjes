@@ -44,7 +44,7 @@
 							<firstStatus>
 								<ObjectStatus 
 								title='Datum'
-								date='{transactions>Datum}'
+								text='{transactions>Datum}'
 								/>
 							</firstStatus>
 							<secondStatus>

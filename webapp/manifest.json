@@ -58,7 +58,7 @@
 				}
 			},
 	 	 	"transactions": {
-				"uri": "http://peter.local:3000/employees/",
+				"uri": "http://localhost:3000/employees/",
 				"type": "sap.ui.model.json.JSONModel"
 				
 	  		},
