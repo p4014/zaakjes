@@ -15,7 +15,7 @@
 					            <Title text="{i18n>invoiceListTitle}"/>
 					            <ToolbarSpacer/>
 					            <SearchField width="50%" search=".onFilterInvoices" 
-					            placeholder="Datum (YYYYMMDD)"/>
+					            placeholder="Datum (YYYY-MM-DD)"/>
 					         </Toolbar>
 					      </headerToolbar>
 					      
@@ -28,7 +28,7 @@
 										{path:'transactions>Bedrag'},
 										{path:'transactions>Af Bij'}
 									],
-									formatter: '.formatNumber'
+									formatter: '.formatter.formatNumber'
 									
 									}"
 							numberState="{= ${transactions>Af Bij} === 'Af' ? 'Error' : 'Success' }"
@@ -44,7 +44,7 @@
 							<firstStatus>
 								<ObjectStatus 
 								title='Datum'
-								text='{transactions>Datum}'
+								date='{transactions>Datum}'
 								/>
 							</firstStatus>
 							<secondStatus>

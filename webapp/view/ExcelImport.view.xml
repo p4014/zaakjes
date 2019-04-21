@@ -1,0 +1,33 @@
+<mvc:View
+   controllerName="com.meui5ncrud.app.controller.ExcelImport"
+   http-equiv="X-UA-Compatible" 
+   content="IE=edge"
+   charset="UTF-8"
+   xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:u="sap.ui.unified"
+   xmlns:mvc="sap.ui.core.mvc"
+   displayBlock="true"
+   class="viewPadding"
+   src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js" 
+   data-sap-ui-xx-bindingSyntax="complex">
+   <Page showNavButton="true"
+		navButtonPress=".onNavBack">
+     <content>
+		<Toolbar>
+           <u:FileUploader 
+         	id="fileUploader" 
+         	name="myFileUpload" 
+         	placeholder="puntkomma gescheiden csv"
+         	uploadUrl="upload/" 
+         	width="400px" 
+         	tooltip="Upload your file to the local server" 
+         	change="handleUpload" />
+        </Toolbar> 
+		  <Text
+		  	id="Text"
+		  	text="{text}"/>
+     </content>
+		
+	</Page>   
+</mvc:View>

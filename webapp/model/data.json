@@ -9,6 +9,11 @@
 			"icon" : "sap-icon://list",
 			"title" : "Transacties",
 			"route" : "List"
+		},
+		{
+			"icon" : "sap-icon://download",
+			"title" : "Transformeer Excel naar JSON",
+			"route" : "Import"
 		}
 	]
 }

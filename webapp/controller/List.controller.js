@@ -10,15 +10,8 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("com.meui5ncrud.app.controller.List", {
-		
-		formatNumber: function(bedrag, afBij) {
-			var minus = '';
-			if(afBij === 'Af'){
-				minus = '-';
-			}
-			console.log(minus);
-			return minus.concat(bedrag);
-		},
+		formatter : formatter,
+
 		onFilterInvoices : function (oEvent) {
 
 			// build filter array

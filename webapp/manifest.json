@@ -58,9 +58,15 @@
 				}
 			},
 	 	 	"transactions": {
-				"uri": "http://localhost:3000/employees/",
+				"uri": "http://peter.local:3000/employees/",
 				"type": "sap.ui.model.json.JSONModel"
 				
+	  		},
+	  		"excel":{
+	  			"type": "sap.ui.model.json.JSONModel",
+	  			"settings": {
+					"bundleName": "com.meui5ncrud.app.model.excel"
+				}
 	  		}
 		},
 		"resources": {
@@ -99,6 +105,13 @@
 				"target": [
 					"JaarOpgave"
 				]
+				}, {
+				"name": "Import",
+				"pattern": "ExcelImport/",
+				"greedy": false,
+				"target": [
+					"Import"
+				]
 				}
 			],
 			"targets": {
@@ -119,8 +132,13 @@
 					"transition": "slide",
 					"clearAggregation": true,
 					"viewName": "JaarOpgave"
+				},
+				"Import": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "ExcelImport"
 				}
-				
 			}
 		}
 	},
