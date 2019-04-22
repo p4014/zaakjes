@@ -32,7 +32,7 @@ sap.ui.define([
 		  var oFileToRead = oEvent.getParameters().files["0"];
 	      var reader = new FileReader();
 	      var json = [];
-	      var list = this.byId("excelList");
+	      var text = this.byId("Text");
 	      var oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
 	      
@@ -53,7 +53,6 @@ sap.ui.define([
 
 		    function processData(csv) {
 		        var allTextLines = csv.split(/\r\n|\n/);
-		        var lines = [];
 		        var headers = [
 		        		oResourceBundle.getText("datum"),
 		        		oResourceBundle.getText("naamOmschrijving"),
@@ -64,7 +63,7 @@ sap.ui.define([
 		        		oResourceBundle.getText("bedrag"),
 		        		oResourceBundle.getText("mutatieSoort"),
 		        		oResourceBundle.getText("mededelingen")
-		        ]
+		        ];
 		        
 
 		        for (var i=1; i<allTextLines.length; i++) {

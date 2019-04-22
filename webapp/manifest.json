@@ -62,11 +62,14 @@
 				"type": "sap.ui.model.json.JSONModel"
 				
 	  		},
-	  		"excel":{
+	  		"somPerMaand": {
+				"uri": "http://localhost:3000/somPerMaand/",
+				"type": "sap.ui.model.json.JSONModel"
+				
+	  		},
+	  		"rekeningen":{
 	  			"type": "sap.ui.model.json.JSONModel",
-	  			"settings": {
-					"bundleName": "com.meui5ncrud.app.model.excel"
-				}
+				"uri": "model/rekeningen.json"
 	  		}
 		},
 		"resources": {

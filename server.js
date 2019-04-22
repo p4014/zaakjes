@@ -2,13 +2,10 @@ var express = require('express'),
 emp = require('./routes/employee');
 var app = express();
 app.use(express.static(__dirname));
-app.configure(function () {
-    app.use(express.logger('dev'));    /* 'default', 'short', 'tiny', 'dev' */
-    app.use(express.bodyParser());
-});
 app.get('/employees', emp.findAll);
 app.get('/somPerMaand', emp.cumulate);
-app.post('/employee', emp.addEmp);
+app.get('/clean', emp.cleanData);
+app.post('/post', emp.addEmp);
 app.put('/employee/:id', emp.updateEmp);
 app.get('/employee/:Datum', emp.findByDate);
 app.delete('/employee/:id', emp.deleteEmp);

@@ -1,9 +1,70 @@
-<mvc:View
-   controllerName="com.meui5ncrud.app.controller.JaarOpgave"
-   xmlns="sap.m"
-   xmlns:mvc="sap.ui.core.mvc"
-   displayBlock="true">
-   <Page showNavButton="true"
-		navButtonPress=".onNavBack">
-	</Page>   
+<?xml version='1.0' encoding='UTF-8'?>
+<mvc:View controllerName="com.meui5ncrud.app.controller.JaarOpgave"
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc" 
+		displayBlock="true">
+  <Page showNavButton="true" navButtonPress=".onNavBack">
+    <content>
+      <Table 
+      	id="TableSom"
+		class="sapUiResponsiveMargin"
+		width="auto"
+		enableBusyIndicator="true"
+		growing="true"
+		items="{
+			path: 'somPerMaand>/Transactions',
+			sorter : [{
+					path : '_id/year',
+					descending: true,
+					group : true
+					},{
+					path : '_id/month',
+					descending: true,
+					group: false
+					}]
+			}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>transactionsListTitle}"/>
+				<ToolbarSpacer/>
+				<ComboBox id="selectRekening" items="{rekeningen>/RekeningLijst}" 
+					selectionChange=".onSelectionChange" placeholder="{i18n>comboboxPlaceholder}">
+					<items>
+						<core:Item key="{rekeningen>key}" text="{rekeningen>text}" />
+					</items>
+				</ComboBox>
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+        	<Column hAlign="Begin"><Text text="{i18n>reportingYear}"/></Column>
+        </columns>
+		<columns>
+        	<Column hAlign="Begin"><Text text="{i18n>reportingMonth}"/></Column>
+        </columns>
+        <columns>
+        	<Column hAlign="End"><Text text="{i18n>bedrag}"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+          	<cells>
+	            <Text text="{somPerMaand>_id/year}"/>
+	         </cells>
+	         <cells>
+				<Text text="{somPerMaand>_id/month}"/>
+			</cells>
+			<cells>
+	            <ObjectNumber number="{
+										parts:[
+											{path:'somPerMaand>total'}
+										],
+										type: 'sap.ui.model.type.Float'
+									}"
+								state="{= ${somPerMaand>total} >= 0.0 ?  'Success' : 'Error' }"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
 </mvc:View>

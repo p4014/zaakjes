@@ -1,0 +1,17 @@
+{
+	"RekeningLijst" : [
+		
+		{
+			"key" : "NL37INGB0653824750",
+			"text" : "Gezamelijke rekening"
+		},
+		{
+			"key" : "NL79INGB0001540413",
+			"text" : "Gwendolien's rekening"
+		},
+		{
+			"key" : "NL21INGB0008552520",
+			"text" : "Peter's rekening"
+		}
+	]
+}

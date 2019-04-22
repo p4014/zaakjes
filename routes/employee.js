@@ -1,25 +1,10 @@
 var transactions = {"Transactions":{ }};
+var somTransactions = {"Transactions":{ }};
 exports.findAll = function(req, res) {
     db.collection('BankZaken', function(err, collection) {
-    	collection.find().forEach(function(data) {
-    		var date = data.Datum;
-    		var year = date.slice(0,4);
-    		var month = date.slice(4,6);
-    		var day = date.slice(6,8)
-    		var newDate = year.concat('-').concat(month).concat('-').concat(day);
-    		console.log(newDate);
-    		
-    		data.Datum = new Date(newDate);
-    		collection.save(data)
-    	    collection.update({
-    	        "_id": data._id,
-    	    }, {
-    	        "$set": {
-    	            "Bedrag": parseFloat(data.Bedrag)
-    	        }
-    	    });
-    	});
+    	
         collection.find().toArray(function(err, items) {
+        	transactions = {"Transactions":{ }};
         	transactions.Transactions = items;
         	
             res.send(transactions);
@@ -29,34 +14,72 @@ exports.findAll = function(req, res) {
 exports.cumulate = function(req, res) {
  var aggregate =  db.collection('BankZaken');
  	aggregate.aggregate([
- 	  {$match:{
- 		  Bedrag : {
- 			 $exists : true
- 		  }
- 	  }},
- 	  {
- 	    $group: {
+	 	 {
+	 	 	$project:{
+	 	 		rekening: "$Rekening",
+	           month: { $month: "$Datum" },
+	           year: { $year: "$Datum"},
+	              bedrag_minus :
+	 	    	{
+	 	    		$switch: {
+	      				branches: [
+	         				{ case: { $eq: [ "$Af Bij", "Af" ] }, 
+	         				then: {$multiply: ["$Bedrag", -1 ]} }
+	         			],
+	         			default : 
+	         			"$Bedrag"
+ 	  				}
+ 	  			}
+ 	  		}},{
+ 	       $group: {
  	       _id: {
- 	    	   rekening: "$Rekening",
- 	    	   af_Bij: "$Af Bij",
- 	    		 ord_date: {
-	              month: { $month: "$Datum" },
-	              year: { $year: "$Datum"}
-	 	    	}
- 	       },
+ 	    	   rekening: "$rekening",
+	           month: "$month",
+	           year: "$year"
+	          
+	      },
+	  
  	       total: {
- 	         $sum: "$Bedrag"
+ 	         $sum: "$bedrag_minus"
  	       }
- 	     
- 		}
- 	   }]).toArray(function(err, items){
- 	 transactions.Transactions = items;
-	 console.log(items);
+ 	     }
+ 		
+ 	   	
+ 	}]).toArray(function(err, items){
+	 	 somTransactions.Transactions = items;
+		 console.log(somTransactions.Transactions);
+		console.log(err);
         });
  	
- 	res.send(transactions);
+ 	res.send(somTransactions);
 };
 
+exports.cleanData = function(req, res){
+	db.collection('BankZaken', function(err, collection) {
+	collection.find().forEach(function(data) {
+		if(typeof data.Datum === 'string'){
+		var date = data.Datum;
+		var year = date.slice(0,4);
+		var month = date.slice(4,6);
+		var day = date.slice(6,8)
+		var newDate = year.concat('-').concat(month).concat('-').concat(day);
+		console.log(newDate);
+		
+		data.Datum = new Date(newDate);
+		collection.save(data)
+		}
+		if(typeof data.Bedrag === 'string'){
+	    collection.update({
+	        "_id": data._id,
+	    }, {
+	        "$set": {
+	            "Bedrag": parseFloat(data.Bedrag)
+	        }
+	    });
+		}
+	});
+	});
+}
 exports.addEmp = function(req, res) {
     var emp = req.body;
     console.log('Adding record: ' + JSON.stringify(emp));

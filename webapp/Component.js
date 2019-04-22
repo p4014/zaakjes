@@ -16,7 +16,7 @@ sap.ui.define([
            this.getRouter().initialize();
 		},
 		
-		createContent:function(){
+		createContent: function(){
 		
 		var appView = new sap.ui.view('idappView',{
 			id: 'idappView',
