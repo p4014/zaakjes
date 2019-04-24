@@ -41,6 +41,7 @@ sap.ui.define([
 				var oItem = oEvent.getSource();
 				var month = oItem.getBindingContext("somPerMaand").getProperty("_id/month");
 				var rekening = oItem.getBindingContext("somPerMaand").getProperty("_id/rekening");
+				var mutatie = oItem.getBindingContext("somPerMaand").getProperty("_id/mutatie");
 				var strMonth = "";
 				if(month < 10){
 					strMonth = "0" + month;
@@ -50,7 +51,8 @@ sap.ui.define([
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouter.navTo("transactionDetail",{
 					rekening : rekening,
-					month: yearMonth
+					month: yearMonth,
+					mutatie: mutatie
 				});
 			}
 		});

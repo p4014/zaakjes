@@ -9,48 +9,52 @@ sap.ui.define([], function () {
 			console.log(minus);
 			return minus.concat(bedrag);
 		},
+		formatDate: function(date){
+			var dateText = date.slice(0 , 10);
+			return dateText;
+		},
 
-		formatMonth: function(month){
+		formatMonth: function(month, year){
 			var monthText="";
 			switch(month){
 				case 1:
-					monthText = "January";
+					monthText = year + " January";
 					break;
 				case 2:
-					monthText = "February";
+					monthText = year + " February";
 					break;
 				case 3:
-					monthText = "Maart";
+					monthText = year + " Maart";
 					break;
 				case 4:
-					monthText = "April";
+					monthText = year + " April";
 					break;
 				case 5:
-					monthText = "Mei";
+					monthText = year + " Mei";
 					break;
 				case 6:
-					monthText = "Juni";
+					monthText = year + " Juni";
 					break;
 				case 7:
-					monthText = "July";
+					monthText = year + " July";
 					break;
 				case 8:
-					monthText = "Augustus";
+					monthText = year + " Augustus";
 					break;
 				case 9:
-					monthText = "September";
+					monthText = year + " September";
 					break;
 				case 10:
-					monthText = "Oktober";
+					monthText = year + " Oktober";
 					break;
 				case 11:
-					monthText = "November";
+					monthText = year + " November";
 					break;
 				case 12:
-					monthText = "December";
+					monthText = year + " December";
 					break;
 				default:
-					monthText = "Undefined";
+					monthText = year + " Undefined";
 			}
 			return monthText;
 		},

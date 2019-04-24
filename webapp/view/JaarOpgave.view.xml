@@ -15,9 +15,12 @@
 		items="{
 			path: 'somPerMaand>/Transactions',
 			sorter : [{
+					path : '_id/mutatie',
+					group : true
+					},{
 					path : '_id/year',
 					descending: true,
-					group : true
+					group : false
 					},{
 					path : '_id/month',
 					descending: true,
@@ -43,9 +46,6 @@
         	<Column hAlign="Begin"><Text text="{i18n>reportingMonth}"/></Column>
         </columns>
         <columns>
-        	<Column hAlign="Begin"><Text text="{i18n>spaarindicator}"/></Column>
-        </columns>
-        <columns>
         	<Column hAlign="End"><Text text="{i18n>bedrag}"/></Column>
         </columns>
         <items>
@@ -59,7 +59,8 @@
 										}"/>
 			</cells>
 	         <cells>
-				<ObjectNumber number="{parts:[{path: 'somPerMaand>_id/month'}],
+				<ObjectNumber number="{parts:[{path: 'somPerMaand>_id/month'},
+										{path: 'somPerMaand>_id/year'} ],
 										formatter : '.formatter.formatMonth'
 										
 										}"/>

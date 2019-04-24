@@ -22,42 +22,64 @@ sap.ui.define([
 		_onObjectMatched: function (oEvent) {
 			var datum = oEvent.getParameter("arguments").month;
 			var rekening = oEvent.getParameter("arguments").rekening;
+			var mutatie = oEvent.getParameter("arguments").mutatie;
 			var aFilter = [];
-			var aSorter = [];
-			 aSorter.push(new sap.ui.model.Sorter("Bedrag", true));
-			if (datum) {
+			if (mutatie != 'Spaar') {
 				aFilter.push(new Filter("Datum", FilterOperator.Contains, datum));
 				aFilter.push(new Filter("Rekening", FilterOperator.Contains, rekening));
+				aFilter.push(new Filter({ filters: [
+					new Filter({
+						path: 'Tegenrekening',
+						operator: FilterOperator.NE,
+						value1: ""
+					}),
+					new Filter({
+						path: 'Code',
+						operator: FilterOperator.NE,
+						value1: "GT"})
+					], and: false 
+
+				}) );
+			} else {
+				aFilter.push(new Filter("Datum", FilterOperator.Contains, datum));
+				aFilter.push(new Filter("Rekening", FilterOperator.Contains, rekening));
+				aFilter.push(new Filter( { filters: [
+					new Filter({
+						path: 'Tegenrekening',
+						operator: FilterOperator.EQ,
+						value1: ""
+					}),
+					new Filter({
+						path: 'Code',
+						operator: FilterOperator.EQ,
+						value1: "GT"})
+					], and: true 
+
+				}) );
+
 			}
 
 			// filter binding
 			var oList = this.byId("transactionsList");
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
-			oBinding.sort(aSorter);
 		},
 
-		onFilterInvoices : function (oEvent) {
+		onChangeSort : function (oSelect) {
 
 			// build filter array
-			
-			var sQuery = oEvent.getParameter("query");
-			var aFilter = [];
-			
-			 
-			  
-			if (sQuery) {
-				aFilter.push(new Filter("Datum", FilterOperator.Contains, sQuery));
+			var aSorter = [];
+			if(oSelect.getParameter("selected")){
+
+				aSorter.push(new sap.ui.model.Sorter("Af Bij", false, true));
+			} else {
+				aSorter.push(new sap.ui.model.Sorter("Af Bij", true, true));
 			}
 
 			// filter binding
 			var oList = this.byId("transactionsList");
 			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
-			
-		},
-
-		_filter : function(sQuery){
+			oBinding.sort(aSorter);
 			
 		},
 

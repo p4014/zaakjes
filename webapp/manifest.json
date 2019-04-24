@@ -117,7 +117,7 @@
 				]
 				}, {
 				"name": "transactionDetail",
-				"pattern": "List/{rekening}/{month}",
+				"pattern": "List/{rekening}/{mutatie}/{month}",
 				"greedy": false,
 				"target": [
 					"List"

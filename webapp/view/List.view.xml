@@ -1,13 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="com.meui5ncrud.app.controller.List" displayBlock="true">
   <Page showNavButton="true" navButtonPress=".onNavBack">
+    <Breadcrumbs></Breadcrumbs>
     <content>
-      <Table id="transactionsList" class="sapUiResponsiveMargin" width="auto" items="{transactions>/Transactions}">
+      <Table id="transactionsList" class="sapUiResponsiveMargin" width="auto" 
+        items="{
+          path: 'transactions>/Transactions',
+          sorter : [{
+              path : 'Af Bij',
+              descending: true,
+              group : true
+              },{
+              path : 'Bedrag',
+              descending: true,
+              group : false
+              },{
+              path : 'Datum',
+              descending: true,
+              group: false
+              }]
+          }">
         <headerToolbar>
-          <Toolbar>
+              <Toolbar>
             <Title text="{i18n>invoiceListTitle}"/>
             <ToolbarSpacer/>
-            <SearchField width="50%" search=".onFilterInvoices" placeholder="Datum (YYYY-MM-DD)"/>
+            <CheckBox width="100%" select=".onChangeSort" text="{i18n>checkBoxLabel}"/>
           </Toolbar>
         </headerToolbar>
         <columns>
@@ -38,7 +55,8 @@
         <items>
           <ColumnListItem type="Navigation" press=".onPress">
             <cells>
-              <ObjectNumber number="{parts:[{path: 'transactions>Datum'}]}"/>
+              <ObjectNumber number="{parts:[{path: 'transactions>Datum'}],
+                            formatter: '.formatter.formatDate'}"/>
             </cells>
             <cells>
               <ObjectNumber number="{parts:[{path: 'transactions>Rekening'}],               formatter : '.formatter.formatRekening'                              }"/>

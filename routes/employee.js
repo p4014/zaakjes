@@ -29,13 +29,13 @@ exports.cumulate = function(req, res) {
 		           								then: "Spaar" }
 		           							],
 	           						default:
-	           						"regulier"
+	           						"Regulier"
 	           						}
 	           					}
            					}
 	           			],
 	           				default:
-	           				"regulier"
+	           				"Regulier"
 	           			
 	           		}
 	           	},
