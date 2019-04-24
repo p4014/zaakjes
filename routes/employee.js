@@ -17,11 +17,29 @@ exports.cumulate = function(req, res) {
 	 	 {
 	 	 	$project:{
 	 	 		rekening: "$Rekening",
-	 	 		tegenrekening: "$Tegenrekening"
-	 	 		code: "$code"
-	           month: { $month: "$Datum" },
-	           year: { $year: "$Datum"},
-	              bedrag_minus :
+	            month: { $month: "$Datum" },
+	            year: { $year: "$Datum"},
+	           	mutatie : {
+	           		$switch:{
+	           			branches: [
+           					{ case: { $eq: ["$Code", "GT"] },
+	           					then: { $switch:{
+		           							branches: [
+		           							{ case: { $eq: ["$Tegenrekening", ""] },
+		           								then: "Spaar" }
+		           							],
+	           						default:
+	           						"regulier"
+	           						}
+	           					}
+           					}
+	           			],
+	           				default:
+	           				"regulier"
+	           			
+	           		}
+	           	},
+	            bedrag_minus :
 	 	    	{
 	 	    		$switch: {
 	      				branches: [
@@ -33,20 +51,12 @@ exports.cumulate = function(req, res) {
  	  				}
  	  			}
  	  		}},{
- 	  			$match: {
- 	  				tegenrekening: {
- 	  					$not : ""
- 	  				},
- 	  				code:{
- 	  					$eq : "GT"
- 	  				}
- 	  			}
- 	  		},{
  	       $group: {
  	       _id: {
- 	    	   rekening: "$rekening",
-	           month: "$month",
-	           year: "$year"
+ 	    	    rekening: "$rekening",
+	            month: "$month",
+	            year: "$year",
+	            mutatie: "$mutatie"
 	          
 	      },
 	  
