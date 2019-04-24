@@ -1,61 +1,61 @@
-<mvc:View
-   controllerName="com.meui5ncrud.app.controller.List"
-   xmlns="sap.m"
-   xmlns:mvc="sap.ui.core.mvc"
-   displayBlock="true">
-   <Page showNavButton="true"
-		navButtonPress=".onNavBack">
-   					<List
-     			 	id="transactionsList"
-      				class="sapUiResponsiveMargin"
-      				width="auto"
-				    items="{transactions>/Transactions}" >
-      					<headerToolbar>
-         					<Toolbar>
-					            <Title text="{i18n>invoiceListTitle}"/>
-					            <ToolbarSpacer/>
-					            <SearchField width="50%" search=".onFilterInvoices" 
-					            placeholder="Datum (YYYY-MM-DD)"/>
-					         </Toolbar>
-					      </headerToolbar>
-					      
-					      <items>
-					
-					         <ObjectListItem
-							title="{transactions>Naam Omschrijving}"
-							number="{
-									parts:[
-										{path:'transactions>Bedrag'},
-										{path:'transactions>Af Bij'}
-									],
-									formatter: '.formatter.formatNumber'
-									
-									}"
-							numberState="{= ${transactions>Af Bij} === 'Af' ? 'Error' : 'Success' }"
-							>
-							<attributes>
-								<ObjectAttribute title= 'Van'
-								text='{transactions>Rekening}'/>
-								<ObjectAttribute 
-								title='Naar'
-								text='{transactions>Tegenrekening}'
-								/>
-								</attributes>
-							<firstStatus>
-								<ObjectStatus 
-								title='Datum'
-								text='{transactions>Datum}'
-								/>
-							</firstStatus>
-							<secondStatus>
-								<ObjectStatus
-								title='Mutatie soort'
-								text='{transactions>MutatieSoort}'
-								/>
-							</secondStatus>
-							</ObjectListItem>
-					
-						</items>
-					   </List>
-                  </Page>   
+<?xml version='1.0' encoding='UTF-8'?>
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="com.meui5ncrud.app.controller.List" displayBlock="true">
+  <Page showNavButton="true" navButtonPress=".onNavBack">
+    <content>
+      <Table id="transactionsList" class="sapUiResponsiveMargin" width="auto" items="{transactions>/Transactions}">
+        <headerToolbar>
+          <Toolbar>
+            <Title text="{i18n>invoiceListTitle}"/>
+            <ToolbarSpacer/>
+            <SearchField width="50%" search=".onFilterInvoices" placeholder="Datum (YYYY-MM-DD)"/>
+          </Toolbar>
+        </headerToolbar>
+        <columns>
+          <Column hAlign="Begin">
+            <Text text="{i18n>datum}"/>
+          </Column>
+        </columns>
+        <columns>
+          <Column hAlign="Begin">
+            <Text text="{i18n>rekening}"/>
+          </Column>
+        </columns>
+        <columns>
+          <Column hAlign="Begin">
+            <Text text="{i18n>naamOmschrijving}"/>
+          </Column>
+        </columns>
+        <columns>
+          <Column hAlign="Begin">
+            <Text text="{i18n>mutatieSoort}"/>
+          </Column>
+        </columns>
+        <columns>
+          <Column hAlign="End">
+            <Text text="{i18n>bedrag}"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" press=".onPress">
+            <cells>
+              <ObjectNumber number="{parts:[{path: 'transactions>Datum'}]}"/>
+            </cells>
+            <cells>
+              <ObjectNumber number="{parts:[{path: 'transactions>Rekening'}],               formatter : '.formatter.formatRekening'                              }"/>
+            </cells>
+            <cells>
+              <ObjectNumber number="{transactions>Naam Omschrijving}"/>
+            </cells>
+            <cells>
+              <ObjectNumber number="{transactions>MutatieSoort}"/>
+            </cells>
+            <cells>
+              <ObjectNumber number="{               parts:[                {path:'transactions>Bedrag'},  {path:'transactions>Af Bij'}             ],         formatter : '.formatter.formatNumber' 
+                         }" state="{= ${transactions>Af Bij} === 'Bij' ?  'Success' : 'Error' }"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
 </mvc:View>

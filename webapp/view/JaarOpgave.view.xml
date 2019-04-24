@@ -37,10 +37,13 @@
 			</Toolbar>
 		</headerToolbar>
 		<columns>
-        	<Column hAlign="Begin"><Text text="{i18n>rekeninglabel}"/></Column>
+        	<Column hAlign="Begin"><Text text="{i18n>rekening}"/></Column>
         </columns>
 		<columns>
         	<Column hAlign="Begin"><Text text="{i18n>reportingMonth}"/></Column>
+        </columns>
+        <columns>
+        	<Column hAlign="Begin"><Text text="{i18n>spaarindicator}"/></Column>
         </columns>
         <columns>
         	<Column hAlign="End"><Text text="{i18n>bedrag}"/></Column>
