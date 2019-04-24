@@ -36,6 +36,22 @@ sap.ui.define([
 				    aFilters.push( new Filter("_id/rekening", FilterOperator.Contains, sFilterValue) );
 				}
 				oBinding.filter(aFilters); 
+			},
+			onPress: function (oEvent) {
+				var oItem = oEvent.getSource();
+				var month = oItem.getBindingContext("somPerMaand").getProperty("_id/month");
+				var rekening = oItem.getBindingContext("somPerMaand").getProperty("_id/rekening");
+				var strMonth = "";
+				if(month < 10){
+					strMonth = "0" + month;
+				}
+				var year = oItem.getBindingContext("somPerMaand").getProperty("_id/year");
+				var yearMonth = year + "-" + strMonth;
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("transactionDetail",{
+					rekening : rekening,
+					month: yearMonth
+				});
 			}
 		});
     return PageController;

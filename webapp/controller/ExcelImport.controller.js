@@ -9,12 +9,6 @@ sap.ui.define([
 
 	return Controller.extend("com.meui5ncrud.app.controller.ExcelImport", {
 		formatter : formatter,
-		
-		onInit: function(oEvent) {
-        	var oProductModel = new JSONModel();
-    		oProductModel.loadData("./model/excel.json");
-    		sap.ui.getCore().setModel(oProductModel, "excel");
-        },
         
 		onNavBack: function () {
 			var oHistory = History.getInstance();

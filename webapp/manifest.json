@@ -84,8 +84,8 @@
 				"viewPath": "com.meui5ncrud.app.view",
 				"controlId": "appView",
 				"controlAggregation": "pages",
-				"transition": "slide"
-
+				"transition": "slide",
+				"async": true
 			},
 			"routes": [{
 				"name": "LandingsPage",
@@ -114,6 +114,13 @@
 				"greedy": false,
 				"target": [
 					"Import"
+				]
+				}, {
+				"name": "transactionDetail",
+				"pattern": "List/{rekening}/{month}",
+				"greedy": false,
+				"target": [
+					"List"
 				]
 				}
 			],

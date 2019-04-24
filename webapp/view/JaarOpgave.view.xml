@@ -37,7 +37,7 @@
 			</Toolbar>
 		</headerToolbar>
 		<columns>
-        	<Column hAlign="Begin"><Text text="{i18n>reportingYear}"/></Column>
+        	<Column hAlign="Begin"><Text text="{i18n>rekeninglabel}"/></Column>
         </columns>
 		<columns>
         	<Column hAlign="Begin"><Text text="{i18n>reportingMonth}"/></Column>
@@ -46,12 +46,20 @@
         	<Column hAlign="End"><Text text="{i18n>bedrag}"/></Column>
         </columns>
         <items>
-          <ColumnListItem>
+          <ColumnListItem 
+          			type="Navigation"
+					press=".onPress">
           	<cells>
-	            <Text text="{somPerMaand>_id/year}"/>
-	         </cells>
+				<ObjectNumber number="{parts:[{path: 'somPerMaand>_id/rekening'}],
+										formatter : '.formatter.formatRekening'
+										
+										}"/>
+			</cells>
 	         <cells>
-				<Text text="{somPerMaand>_id/month}"/>
+				<ObjectNumber number="{parts:[{path: 'somPerMaand>_id/month'}],
+										formatter : '.formatter.formatMonth'
+										
+										}"/>
 			</cells>
 			<cells>
 	            <ObjectNumber number="{

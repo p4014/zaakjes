@@ -17,6 +17,8 @@ exports.cumulate = function(req, res) {
 	 	 {
 	 	 	$project:{
 	 	 		rekening: "$Rekening",
+	 	 		tegenrekening: "$Tegenrekening"
+	 	 		code: "$code"
 	           month: { $month: "$Datum" },
 	           year: { $year: "$Datum"},
 	              bedrag_minus :
@@ -31,6 +33,15 @@ exports.cumulate = function(req, res) {
  	  				}
  	  			}
  	  		}},{
+ 	  			$match: {
+ 	  				tegenrekening: {
+ 	  					$not : ""
+ 	  				},
+ 	  				code:{
+ 	  					$eq : "GT"
+ 	  				}
+ 	  			}
+ 	  		},{
  	       $group: {
  	       _id: {
  	    	   rekening: "$rekening",
