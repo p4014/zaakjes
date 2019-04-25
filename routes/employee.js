@@ -102,15 +102,20 @@ exports.cleanData = function(req, res){
 	});
 }
 exports.addEmp = function(req, res) {
-    var emp = req.body;
-    console.log('Adding record: ' + JSON.stringify(emp));
+	console.log(req.query);
+    var json = req.query;
+
+    json.Datum = new Date(json.Datum);
+    json.Bedrag = parseFloat(json.Bedrag.replace(',', '.'));
+    console.log(json.Datum);
+    //console.log('Adding record: ' + JSON.stringify(json));
     db.collection('BankZaken', function(err, collection) {
-        collection.insert(emp, {safe:true}, function(err, result) {
+    	 collection.insert( json, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {
-                console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
+                console.log('Success: ' + JSON.stringify(result));
+                res.send(result);
             }
         });
     });

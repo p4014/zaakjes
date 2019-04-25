@@ -1,75 +1,57 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="com.meui5ncrud.app.controller.List" displayBlock="true">
   <Page showNavButton="true" navButtonPress=".onNavBack">
-    <Breadcrumbs></Breadcrumbs>
+    <Breadcrumbs/>
     <content>
-      <Table id="transactionsList" class="sapUiResponsiveMargin" width="auto" 
-        items="{
-          path: 'transactions>/Transactions',
-          sorter : [{
-              path : 'Af Bij',
-              descending: true,
-              group : true
-              },{
-              path : 'Bedrag',
-              descending: true,
-              group : false
-              },{
-              path : 'Datum',
-              descending: true,
-              group: false
-              }]
-          }">
+      <Table id="transactionsList" class="sapUiResponsiveMargin" width="auto" items="{           path: 'transactions&gt;/Transactions',           sorter : [{               path : 'Af Bij',               descending: true,               group : true               },{               path : 'Bedrag',               descending: true,               group : false               },{               path : 'Datum',               descending: true,               group: false               }]           }">
         <headerToolbar>
-              <Toolbar>
-            <Title text="{i18n>invoiceListTitle}"/>
+          <Toolbar>
+            <Title text="{i18n&gt;invoiceListTitle}"/>
             <ToolbarSpacer/>
-            <CheckBox width="100%" select=".onChangeSort" text="{i18n>checkBoxLabel}"/>
+            <CheckBox width="100%" select=".onChangeSort" text="{i18n&gt;checkBoxLabel}"/>
           </Toolbar>
         </headerToolbar>
         <columns>
           <Column hAlign="Begin">
-            <Text text="{i18n>datum}"/>
+            <Text text="{i18n&gt;datum}"/>
           </Column>
         </columns>
         <columns>
           <Column hAlign="Begin">
-            <Text text="{i18n>rekening}"/>
+            <Text text="{i18n&gt;rekening}"/>
           </Column>
         </columns>
         <columns>
           <Column hAlign="Begin">
-            <Text text="{i18n>naamOmschrijving}"/>
+            <Text text="{i18n&gt;naamOmschrijving}"/>
           </Column>
         </columns>
         <columns>
           <Column hAlign="Begin">
-            <Text text="{i18n>mutatieSoort}"/>
+            <Text text="{i18n&gt;mutatieSoort}"/>
           </Column>
         </columns>
         <columns>
           <Column hAlign="End">
-            <Text text="{i18n>bedrag}"/>
+            <Text text="{i18n&gt;bedrag}"/>
           </Column>
         </columns>
         <items>
           <ColumnListItem type="Navigation" press=".onPress">
             <cells>
-              <ObjectNumber number="{parts:[{path: 'transactions>Datum'}],
-                            formatter: '.formatter.formatDate'}"/>
+              <ObjectNumber number="{parts:[{path: 'transactions&gt;Datum'}],                             formatter: '.formatter.formatDate'}"/>
             </cells>
             <cells>
-              <ObjectNumber number="{parts:[{path: 'transactions>Rekening'}],               formatter : '.formatter.formatRekening'                              }"/>
+              <ObjectNumber number="{parts:[{path: 'transactions&gt;Rekening'}],               formatter : '.formatter.formatRekening'                              }"/>
             </cells>
             <cells>
-              <ObjectNumber number="{transactions>Naam Omschrijving}"/>
+              <ObjectNumber number="{transactions&gt;Naam Omschrijving}"/>
             </cells>
             <cells>
-              <ObjectNumber number="{transactions>MutatieSoort}"/>
+              <ObjectNumber number="{transactions&gt;MutatieSoort}"/>
             </cells>
             <cells>
-              <ObjectNumber number="{               parts:[                {path:'transactions>Bedrag'},  {path:'transactions>Af Bij'}             ],         formatter : '.formatter.formatNumber' 
-                         }" state="{= ${transactions>Af Bij} === 'Bij' ?  'Success' : 'Error' }"/>
+              <ObjectNumber number="{               parts:[                {path:'transactions&gt;Bedrag'},  {path:'transactions&gt;Af Bij'}             ],         formatter : '.formatter.formatNumber'                           }" state="{= ${transactions&gt;Af Bij} === 'Bij' ?  'Success' : 'Error' }"/>
             </cells>
           </ColumnListItem>
         </items>
