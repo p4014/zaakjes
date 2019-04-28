@@ -122,9 +122,11 @@ sap.ui.define([
 		onPress: function(){
 			var oTable = this.getView().byId("excelTable");
 			var oModel = oTable.getModel("table");
-			var oFinalResult = oModel.getJSON();
-		    var jsonObject = JSON.parse(oFinalResult )["0"];
-			var aData = jQuery.sap.sjax({
+			var oFinalResult = JSON.parse(oModel.getJSON());
+
+			for (let j = 0; j < oFinalResult.length; j++) {
+		            var jsonObject = oFinalResult[j];
+					var aData = jQuery.sap.sjax({
                     type : "POST",
                     contentType : "application/json",
                     url : "http://192.168.178.38:3000/post?Datum=" + jsonObject.Datum +
@@ -145,6 +147,10 @@ sap.ui.define([
                         oModel.setData({modelData : data}); 
                     }
             	});
+
+		        }
+
+		    
 		}
 	})
 });
