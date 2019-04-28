@@ -10,9 +10,9 @@ sap.ui.define([
 	return Controller.extend("com.meui5ncrud.app.controller.ExcelImport", {
 		formatter : formatter,
 
-		oninit: function(){
+		init: function(){
 			var oModel = new sap.ui.model.json.JSONModel();
-        	sap.ui.getCore().setModel(oModel);
+        	sap.ui.getCore().setModel(oModel, "table");
 		},
         
 		onNavBack: function () {
@@ -28,13 +28,12 @@ sap.ui.define([
 		},
 		
 		handleUpload: function(oEvent){
-			var oTable = this.getView().byId("excelList");
-			var oModel = new JSONModel();
+		  var oTable = this.getView().byId("excelTable");
+		  var oModel = new JSONModel();
 		  var oFileToRead = oEvent.getParameters().files["0"];
 	      var reader = new FileReader();
-	      var json = [];
 	      var oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-
+	      
 	      // Read file into memory as UTF-8
 	      reader.readAsText(oFileToRead);
 	      
@@ -54,6 +53,7 @@ sap.ui.define([
 
 		    function processData(csv) {
 		        var allTextLines = csv.split(/\r\n|\n/);
+		        var json=[];
 		        var headers = [
 		        		oResourceBundle.getText("datum"),
 		        		oResourceBundle.getText("naamOmschrijving"),
@@ -76,7 +76,8 @@ sap.ui.define([
 		        var oStringResult = JSON.stringify(json);
 		        var oFinalResult = JSON.parse(oStringResult.replace(/\\r/g, ""));
 		        //return result; //JavaScript object
-		        sap.ui.getCore().getModel().setProperty("/", oFinalResult);
+		        oModel.setProperty("/", oFinalResult);
+		        oTable.setModel(oModel, "table");
 		    }
 		    
 		    function buildJSON(headers, currentLine){
@@ -119,9 +120,10 @@ sap.ui.define([
 		    }
 		},
 		onPress: function(){
-			
-			var oModel = this.getOwnerComponent().getModel("post");
-			var jsonObject = oModel.getJSON();
+			var oTable = this.getView().byId("excelTable");
+			var oModel = oTable.getModel("table");
+			var oFinalResult = oModel.getJSON();
+		    var jsonObject = JSON.parse(oFinalResult )["0"];
 			var aData = jQuery.sap.sjax({
                     type : "POST",
                     contentType : "application/json",
@@ -129,7 +131,7 @@ sap.ui.define([
                     "&NaamOmschrijving="+ jsonObject["Naam Omschrijving"] +
                     "&Rekening="+ jsonObject.Rekening +
                     "&Tegenrekening="+ jsonObject.Tegenrekening +
-                    "&Code="+ jsonObject.code +
+                    "&Code="+ jsonObject.Code +
                     "&AfBij="+ jsonObject["Af Bij"] +
                     "&Bedrag="+ jsonObject.Bedrag +
                     "&MutatieSoort="+ jsonObject.MutatieSoort +

@@ -3,42 +3,61 @@
   <Page showNavButton="true" navButtonPress=".onNavBack">
     <content>
       <u:FileUploader id="fileUploader" name="myFileUpload" placeholder="puntkomma gescheiden csv" uploadUrl="upload/" width="400px" tooltip="Upload your file to the local server" change="handleUpload"/>
-      <t:Table rows="{/}" title="" selectionMode="MultiToggle" visibleRowCount="5">
+      <Button id="importButton" text="Import Excel" press=".onPress" />
+      <t:Table id ="excelTable" rows="{table>/}" title="" selectionMode="MultiToggle" visibleRowCount="5">
                 <t:columns>
                   <t:Column width="13rem">
-                    <Label text="Reciver order" />
+                    <Label text="{i18n>datum}" />
                     <t:template>
-                      <Text text="{Reciverorder}" />
+                      <Text text="{table>Datum}" />
                     </t:template>
                   </t:Column>
                   <t:Column width="11rem">
-                    <Label text="Statistical key figure" />
+                    <Label text="{i18n>naamOmschrijving}" />
                     <t:template>
-                      <Text text="{Statisticalkeyfigure}" />
+                      <Text text="{table>Naam Omschrijving}" />
                     </t:template>
                   </t:Column>
                   <t:Column width="11rem">
-                    <Label text="Category" />
+                    <Label text="{i18n>rekening}" />
                     <t:template>
-                      <Link text="{Category}" />
+                      <Text text="{table>Rekening}" />
                     </t:template>
                   </t:Column>
                   <t:Column width="11rem">
-                    <Label text="quantity" />
+                    <Label text="{i18n>tegenrekening}" />
                     <t:template>
-                      <Text text="{quantity}" />
+                      <Text text="{table>Tegenrekening}" />
                     </t:template>
                   </t:Column>
                   <t:Column width="11rem">
-                    <Label text="UoM" />
+                    <Label text="{i18n>code}" />
                     <t:template>
-                      <Text text="{UoM}" />
+                      <Text text="{table>Code}" />
                     </t:template>
                   </t:Column>
                   <t:Column width="11rem">
-                    <Label text="description" />
+                    <Label text="{i18n>afBij}" />
                     <t:template>
-                      <Text text="{description}" />
+                      <Text text="{table>Af Bij}" />
+                    </t:template>
+                  </t:Column>
+                  <t:Column width="11rem">
+                    <Label text="{i18n>bedrag}" />
+                    <t:template>
+                      <Text text="{table>Bedrag}" />
+                    </t:template>
+                  </t:Column>
+                  <t:Column width="11rem">
+                    <Label text="{i18n>mutatieSoort}" />
+                    <t:template>
+                      <Text text="{table>MutatieSoort}" />
+                    </t:template>
+                  </t:Column>
+                  <t:Column width="11rem">
+                    <Label text="{i18n>mededelingen}" />
+                    <t:template>
+                      <Text text="{table>Mededelingen}" />
                     </t:template>
                   </t:Column>
                 </t:columns>
