@@ -16,7 +16,9 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			if(oRouter.getRoute("transactionDetail") !== null){
 				oRouter.getRoute("transactionDetail").attachPatternMatched(this._onObjectMatched, this);
+
 			}
+
 			
 		},
 		_onObjectMatched: function (oEvent) {

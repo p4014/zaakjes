@@ -10,7 +10,13 @@ sap.ui.define([], function () {
 			return minus.concat(bedrag);
 		},
 		formatDate: function(date){
-			var dateText = date.slice(0 , 10);
+			var dateText ='';
+			if(date){
+				dateText = date.slice(0 , 10);
+			} else{
+			 dateText = '';
+			}
+			
 			return dateText;
 		},
 
@@ -71,7 +77,7 @@ sap.ui.define([], function () {
 					rekeningLabel="Peter's rekening";
 					break;
 				default:
-					rekeningLabel="Nieuwe rekening";
+					rekeningLabel="Geen data";
 			}
 			return rekeningLabel;
 		}

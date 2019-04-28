@@ -9,6 +9,11 @@ sap.ui.define([
 
 	return Controller.extend("com.meui5ncrud.app.controller.ExcelImport", {
 		formatter : formatter,
+
+		oninit: function(){
+			var oModel = new sap.ui.model.json.JSONModel();
+        	sap.ui.getCore().setModel(oModel);
+		},
         
 		onNavBack: function () {
 			var oHistory = History.getInstance();
@@ -23,21 +28,22 @@ sap.ui.define([
 		},
 		
 		handleUpload: function(oEvent){
-		  var oModel = this.getOwnerComponent().getModel("post");
-
+			var oTable = this.getView().byId("excelList");
+			var oModel = new JSONModel();
 		  var oFileToRead = oEvent.getParameters().files["0"];
 	      var reader = new FileReader();
 	      var json = [];
-	      var text = this.byId("Text");
 	      var oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 
 	      // Read file into memory as UTF-8
 	      reader.readAsText(oFileToRead);
-
+	      
 	      // Handle errors load
 	      reader.onload = loadHandler;
 	      reader.onerror = errorHandler;
 	      
+	      
+		  
 
 
 		    function loadHandler(event) {	
@@ -67,7 +73,10 @@ sap.ui.define([
 		          json.push(buildJSON(headers, data));
 			      
 		        }
-		        text.setText(JSON.stringify(json, undefined, 2));
+		        var oStringResult = JSON.stringify(json);
+		        var oFinalResult = JSON.parse(oStringResult.replace(/\\r/g, ""));
+		        //return result; //JavaScript object
+		        sap.ui.getCore().getModel().setProperty("/", oFinalResult);
 		    }
 		    
 		    function buildJSON(headers, currentLine){
@@ -79,27 +88,7 @@ sap.ui.define([
 		            jsonObject[propertyName] = value;
 
 		        }
-		        var aData = jQuery.sap.sjax({
-                    type : "POST",
-                    contentType : "application/json",
-                    url : "http://192.168.178.38:3000/post?Datum=" + jsonObject.Datum +
-                    "&NaamOmschrijving="+ jsonObject["Naam Omschrijving"] +
-                    "&Rekening="+ jsonObject.Rekening +
-                    "&Tegenrekening="+ jsonObject.Tegenrekening +
-                    "&Code="+ jsonObject.code +
-                    "&AfBij="+ jsonObject["Af Bij"] +
-                    "&Bedrag="+ jsonObject.Bedrag +
-                    "&MutatieSoort="+ jsonObject.MutatieSoort +
-                    "&Mededelingen="+ jsonObject.Mededelingen,
-                    dataType : "json",
-                    async: true, 
-                    success : function(data,textStatus, jqXHR) {
-                        oModel.setData({modelData : data}); 
-                    },
-                    error : function(data,textStatus, jqXHR) {
-                        oModel.setData({modelData : data}); 
-                    }
-            	});
+		        
 		        return jsonObject;
 		    }
 
@@ -128,6 +117,32 @@ sap.ui.define([
 		        	return String(value);
 		        }
 		    }
+		},
+		onPress: function(){
+			
+			var oModel = this.getOwnerComponent().getModel("post");
+			var jsonObject = oModel.getJSON();
+			var aData = jQuery.sap.sjax({
+                    type : "POST",
+                    contentType : "application/json",
+                    url : "http://192.168.178.38:3000/post?Datum=" + jsonObject.Datum +
+                    "&NaamOmschrijving="+ jsonObject["Naam Omschrijving"] +
+                    "&Rekening="+ jsonObject.Rekening +
+                    "&Tegenrekening="+ jsonObject.Tegenrekening +
+                    "&Code="+ jsonObject.code +
+                    "&AfBij="+ jsonObject["Af Bij"] +
+                    "&Bedrag="+ jsonObject.Bedrag +
+                    "&MutatieSoort="+ jsonObject.MutatieSoort +
+                    "&Mededelingen="+ jsonObject.Mededelingen,
+                    dataType : "json",
+                    async: true, 
+                    success : function(data,textStatus, jqXHR) {
+                        oModel.setData({modelData : data}); 
+                    },
+                    error : function(data,textStatus, jqXHR) {
+                        oModel.setData({modelData : data}); 
+                    }
+            	});
 		}
 	})
 });
