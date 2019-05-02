@@ -43,13 +43,18 @@ sap.ui.define([
 			var Indice = oTable.getSelectedIndices()[0];
 			var newRows = currentRows.concat(this.createEntry(Indice));
 			oModel.setProperty("/Categorie", newRows);
+
 		},
 		onDelete: function () {
 			var oTable = this.getView().byId("excelTable");
-			var Indice = oTable.getSelectedIndices()[0];
-			var oRow = oTable.getRows()[Indice];
-			oRow.removeAllCells();
-			this.getPage().setShowFooter(!this.getPage().getShowFooter());
+			var indice = oTable.getSelectedIndices();
+			var oModel = this.getView().getModel("categorie");
+			var newModel = oModel.getProperty("/Categorie");
+
+			for (let j = indice.length -1 ; j > 0 ; j--) {
+				newModel.splice(indice[j], 1);
+			}
+			oModel.setProperty("/Categorie", newModel);
 		},
 
 		createEntry: function(Indice){
