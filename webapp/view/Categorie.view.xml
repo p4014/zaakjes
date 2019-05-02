@@ -12,16 +12,6 @@
           <f:heading>
             <Title text="{i18n>Categorie}"/>
           </f:heading>
-          <f:breadcrumbs>
-            <Breadcrumbs>
-              <Link text="Home" />
-              <Link text="Page 1" />
-              <Link text="Page 2" />
-              <Link text="Page 3" />
-              <Link text="Page 4" />
-              <Link text="Page 5" />
-            </Breadcrumbs>
-          </f:breadcrumbs>
           <f:snappedTitleOnMobile>
             <Title text="Header Title On Phone"/>
           </f:snappedTitleOnMobile>
@@ -29,12 +19,12 @@
             <Button text="Edit" type="Emphasized" press="onEdit"/>
             <Button text="Delete" type="Transparent" press="onDelete"/>
             <Button text="Copy" type="Transparent" press="onCopy"/>
-            <Button text="Toggle Footer" type="Transparent" press="onToggleFooter"/>
+            <Button text="Save" type="Transparent" press="onToggleFooter"/>
           </f:actions>
         </f:DynamicPageTitle>
       </f:title>
     <f:content>
-      <t:Table id="excelTable" rows="{categorie&gt;/Categorie}" title="" selectionMode="MultiToggle" visibleRowCount="20">
+      <t:Table id="excelTable" rows="{categorie&gt;/Categorie}" title="" selectionMode="MultiToggle" visibleRowCount="20" editable="true">
         <t:columns>
           <t:Column width="20rem">
             <Label text="{i18n&gt;naamOmschrijving}"/>
@@ -70,10 +60,11 @@
             text="{/messagesLength}"
             type="Emphasized"
             press="onMessageButtonPress"
-            visible="{= !!${/messagesLength}}"/>
+            visible="{= !!${/messagesLength}}"/>           
           <ToolbarSpacer/>
-          <Button type="Accept" text="Accept" press="onPressAccept"/>
-          <Button type="Reject" text="Reject" press="onPressReject"/>
+          <Label text = "Are you sure?" />          
+          <Button type="Reject" text="No" press="onPressReject"/>          
+          <Button type="Accept" text="Yes" press="onPressAccept"/>
         </OverflowToolbar>
       </f:footer>
     </f:DynamicPage>
