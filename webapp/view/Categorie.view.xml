@@ -16,7 +16,6 @@
             <Title text="Header Title On Phone"/>
           </f:snappedTitleOnMobile>
           <f:actions>
-            <Button text="Edit" type="Emphasized" press="onEdit"/>
             <Button text="Delete" type="Transparent" press="onDelete"/>
             <Button text="Copy" type="Transparent" press="onCopy"/>
             <Button text="Save" type="Transparent" press="onToggleFooter"/>
@@ -29,25 +28,25 @@
           <t:Column width="20rem">
             <Label text="{i18n&gt;naamOmschrijving}"/>
             <t:template>
-              <Text text="{categorie&gt;Naam Omschrijving}"/>
+              <Input value="{categorie&gt;Naam Omschrijving}"/>
             </t:template>
           </t:Column>
           <t:Column width="6rem">
             <Label text="{i18n&gt;code}"/>
             <t:template>
-              <Text text="{categorie&gt;Code}"/>
+              <Input value="{categorie&gt;Code}"/>
             </t:template>
           </t:Column>
           <t:Column width="42rem">
             <Label text="{i18n&gt;mededelingen}"/>
             <t:template>
-              <Text text="{categorie&gt;Mededelingen}"/>
+              <Input value="{categorie&gt;Mededelingen}"/>
             </t:template>
           </t:Column>
           <t:Column width="8rem">
             <Label text="Categorie"/>
             <t:template>
-              <Text text="{categorie&gt;Categorie}"/>
+              <Input value="{categorie&gt;Categorie}"/>
             </t:template>
           </t:Column>
         </t:columns>

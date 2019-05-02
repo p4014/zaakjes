@@ -11,17 +11,15 @@ sap.ui.define([
 	return Controller.extend("com.meui5ncrud.app.controller.ExcelImport", {
 		formatter : formatter,
 
-		onInit: function () {
-			var oModel = new JSONModel(jQuery.sap.getModulePath("sap.ui.demo.mock", "/products.json"));
-			this.getView().setModel(oModel);
-		},
 		getPage : function() {
 			return this.byId("dynamicPageId");
 		},
+
 		onToggleFooter: function () {
 			this.getPage().setShowFooter(!this.getPage().getShowFooter());
 		},
         
+        //navigate back to previous page or to homepage if no history is available
 		onNavBack: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
@@ -33,9 +31,8 @@ sap.ui.define([
 				oRouter.navTo("LandingsPage", {}, true);
 			}
 		},
-		onEdit: function () {
-			this.getPage().setShowFooter(!this.getPage().getShowFooter());
-		},
+
+		//copy selected json object in model
 		onCopy: function () {
 			var oTable = this.getView().byId("excelTable");
 			var oModel = this.getView().getModel("categorie");
@@ -43,8 +40,9 @@ sap.ui.define([
 			var Indice = oTable.getSelectedIndices()[0];
 			var newRows = currentRows.concat(this.createEntry(Indice));
 			oModel.setProperty("/Categorie", newRows);
-
 		},
+
+		//Remove selected json objects from model
 		onDelete: function () {
 			var oTable = this.getView().byId("excelTable");
 			var indice = oTable.getSelectedIndices();
@@ -57,55 +55,51 @@ sap.ui.define([
 			oModel.setProperty("/Categorie", newModel);
 		},
 
+		//create copy of json model
 		createEntry: function(Indice){
 			var oTable = this.getView().byId("excelTable");
 			var oRow = oTable.getRows()[Indice];
 			var cells = oRow.getCells();
 			var json = [{
-				"Naam Omschrijving": cells[0].getText(),
-				"Code": cells[1].getText(),
-				"Mededelingen": cells[2].getText(),
-				"Categorie": cells[3].getText(),
+				"Naam Omschrijving": cells[0].getValue(),
+				"Code": cells[1].getValue(),
+				"Mededelingen": cells[2].getValue(),
+				"Categorie": cells[3].getValue(),
 
 			}];
 			return json;
 		},
 
+		//remove footer if not ready for changes
 		onPressReject: function () {
-			var oTable = this.getView().byId("excelTable");
-			var selectedRows = oTable.getSelectedIndices();
-			var oRow = oTable.getRows()[selectedRows[0]];
-			var cells = oRow.getCells();
-			var data = cells[0].getText();
+			this.onToggleFooter();
 		},
 
-		
+		//send selected items to database, database will not take double entries
 		onPressAccept: function(){
 			var oTable = this.getView().byId("excelTable");
 			var oModel = oTable.getModel("table");
-			var oFinalResult = JSON.parse(oModel.getJSON());
+			var indice = oTable.getSelectedIndices();
 
-			for (let j = 0; j < oFinalResult.length; j++) {
-		            var jsonObject = oFinalResult[j];
+			for (let j = 0; j < indice.length; j++) {
+		            var oRow = oTable.getRows()[indice[j]];
+		            var cells = oRow.getCells();
 					var aData = jQuery.sap.sjax({
                     type : "POST",
                     contentType : "application/json",
-                    url : "http://192.168.178.38:3000/post?Datum=" + jsonObject.Datum +
-                    "&NaamOmschrijving="+ jsonObject["Naam Omschrijving"] +
-                    "&Rekening="+ jsonObject.Rekening +
-                    "&Tegenrekening="+ jsonObject.Tegenrekening +
-                    "&Code="+ jsonObject.Code +
-                    "&AfBij="+ jsonObject["Af Bij"] +
-                    "&Bedrag="+ jsonObject.Bedrag +
-                    "&MutatieSoort="+ jsonObject.MutatieSoort +
-                    "&Mededelingen="+ jsonObject.Mededelingen,
+                    url : "http://192.168.178.38:3000/post?NaamOmschrijving=" + cells[0].getValue() +
+                    "&Code="+ cells[1].getValue() +
+                    "&Mededelingen="+ cells[2].getValue() +
+                    "&Categorie"+cells[3].getValue(),
                     dataType : "json",
                     async: true, 
                     success : function(data,textStatus, jqXHR) {
                         oModel.setData({modelData : data}); 
+                        alert("Saved");
                     },
                     error : function(data,textStatus, jqXHR) {
                         oModel.setData({modelData : data}); 
+                        alert("Failed");
                     }
             	});
 
