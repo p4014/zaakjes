@@ -7,8 +7,13 @@
 		},
 		{
 			"icon" : "sap-icon://download",
-			"title" : "Transformeer Excel naar JSON",
+			"title" : "Upload Excel data",
 			"route" : "Import"
+		},
+		{
+			"icon" : "sap-icon://add-activity",
+			"title" : "Categorieën",
+			"route" : "Categorie"
 		}
 	]
 }

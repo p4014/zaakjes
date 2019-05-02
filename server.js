@@ -4,6 +4,7 @@ var app = express();
 app.use(express.static(__dirname));
 app.get('/employees', emp.findAll);
 app.get('/somPerMaand', emp.cumulate);
+app.get('/categorie', emp.categorie);
 app.get('/clean', emp.cleanData);
 app.post('/post', emp.addEmp);
 app.put('/employee/:id', emp.updateEmp);

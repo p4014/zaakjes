@@ -1,13 +1,23 @@
 var transactions = {"Transactions":{ }};
 var somTransactions = {"Transactions":{ }};
+var categorie = {"Categorie":{ }};
 exports.findAll = function(req, res) {
     db.collection('BankZaken', function(err, collection) {
     	
         collection.find().toArray(function(err, items) {
-        	transactions = {"Transactions":{ }};
         	transactions.Transactions = items;
         	
             res.send(transactions);
+        });
+    });
+};
+exports.categorie = function(req, res) {
+    db.collection('Categorie', function(err, collection) {
+    	
+        collection.find().toArray(function(err, items) {
+        	categorie.Categorie = items;
+        	
+            res.send(categorie);
         });
     });
 };
