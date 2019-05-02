@@ -28,7 +28,7 @@
           <t:Column width="20rem">
             <Label text="{i18n&gt;naamOmschrijving}"/>
             <t:template>
-              <Input value="{categorie&gt;Naam Omschrijving}"/>
+              <Input value="{categorie&gt;NaamOmschrijving}"/>
             </t:template>
           </t:Column>
           <t:Column width="6rem">

@@ -7,6 +7,7 @@ app.get('/somPerMaand', emp.cumulate);
 app.get('/categorie', emp.categorie);
 app.get('/clean', emp.cleanData);
 app.post('/post', emp.addEmp);
+app.post('/postCategorie', emp.addCat);
 app.put('/employee/:id', emp.updateEmp);
 app.get('/employee/:Datum', emp.findByDate);
 app.delete('/employee/:id', emp.deleteEmp);

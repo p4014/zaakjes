@@ -110,7 +110,8 @@ exports.cleanData = function(req, res){
 		}
 	});
 	});
-}
+};
+
 exports.addEmp = function(req, res) {
 	console.log(req.query);
     var json = req.query;
@@ -129,7 +130,24 @@ exports.addEmp = function(req, res) {
             }
         });
     });
-}
+};
+
+exports.addCat = function(req, res) {
+	console.log(req.query);
+    var json = req.query;
+
+    db.collection('Categorie', function(err, collection) {
+    	 collection.insert( json, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred'});
+                console.log(err);
+            } else {
+                console.log('Success: ' + JSON.stringify(result));
+                res.send(result);
+            }
+        });
+    });
+};
 exports.deleteEmp = function(req, res) {
 var empToDelete = req.params.id;
 db.collection('BankZaken',function(err,collection){
@@ -137,7 +155,7 @@ collection.remove({'id':empToDelete},function(err){
   res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
 })
 })
-}
+};
 exports.updateEmp = function(req, res) {
   var id = req.params.id;
     var emp = req.body;
@@ -151,7 +169,7 @@ exports.updateEmp = function(req, res) {
             }
         });
     });
-}
+};
 exports.findByDate= function (req,res) {
 	var empId = req.params.Datum;
 	console.log(empId);

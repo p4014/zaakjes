@@ -75,10 +75,16 @@ sap.ui.define([
 			this.onToggleFooter();
 		},
 
+		refreshTable: function(){
+			var oModel = this.getView().getModel("categorie");
+			var currentRows = oModel.getProperty("/Categorie");
+			oModel.setProperty("/Categorie", currentRows);
+		},
+
 		//send selected items to database, database will not take double entries
 		onPressAccept: function(){
 			var oTable = this.getView().byId("excelTable");
-			var oModel = oTable.getModel("table");
+			var oModel = oTable.getModel("categorie");
 			var indice = oTable.getSelectedIndices();
 
 			for (let j = 0; j < indice.length; j++) {
@@ -87,10 +93,10 @@ sap.ui.define([
 					var aData = jQuery.sap.sjax({
                     type : "POST",
                     contentType : "application/json",
-                    url : "http://192.168.178.38:3000/post?NaamOmschrijving=" + cells[0].getValue() +
+                    url : "http://192.168.178.38:3000/postCategorie?NaamOmschrijving=" + cells[0].getValue() +
                     "&Code="+ cells[1].getValue() +
                     "&Mededelingen="+ cells[2].getValue() +
-                    "&Categorie"+cells[3].getValue(),
+                    "&Categorie="+cells[3].getValue(),
                     dataType : "json",
                     async: true, 
                     success : function(data,textStatus, jqXHR) {
@@ -104,6 +110,7 @@ sap.ui.define([
             	});
 
 		        }
+		        this.refreshTable();
 
 		    
 		}
