@@ -24,4 +24,4 @@ steps:
   inputs:
     containerRegistry: dockerhub
     repository: 'hello_world'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/_p4014.zaakjes/dockerfile'
+    Dockerfile: '*/dockerfile'
