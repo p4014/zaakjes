@@ -59,17 +59,17 @@
 			},
 	 	 	"transactions": {
 
-				"uri": "http://192.168.178.38:3000/employees/",
+				"uri": "http://localhost:3000/employees/",
 				"type": "sap.ui.model.json.JSONModel"
 				
 	  		},
 	  		"somPerMaand": {
-				"uri": "http://192.168.178.38:3000/somPerMaand/",
+				"uri": "http://localhost:3000/somPerMaand/",
 				"type": "sap.ui.model.json.JSONModel"
 				
 	  		},
 	  		"categorie": {
-				"uri": "http://192.168.178.38:3000/Categorie/",
+				"uri": "http://localhost:3000/Categorie/",
 				"type": "sap.ui.model.json.JSONModel"
 				
 	  		},
@@ -78,7 +78,7 @@
 				"uri": "model/rekeningen.json"
 	  		},
 	  		"post":{
-	  			"uri": "http://192.168.178.38:3000/post",
+	  			"uri": "http://localhost:3000/post",
 				"type": "sap.ui.model.json.JSONModel"
 	  		},
 	  		"postCategorie":{

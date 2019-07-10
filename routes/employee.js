@@ -171,13 +171,12 @@ exports.updateEmp = function(req, res) {
     });
 };
 exports.findByDate= function (req,res) {
-	var empId = req.params.Datum;
-	console.log(empId);
-	console.log(req)
-	db.collection('BankZaken',function (err,collection) {
-		   collection.find( {  Datum: empId } ).toArray(function(err, items) {
-	            res.send(items);
-	        });
-		
-		})
-	}
+	db.collection('BankZaken', function(err, collection) {
+      
+        collection.find().toArray(function(err, items) {
+          transactions.Transactions = items;
+          
+            res.send(transactions);
+        });
+    });
+	};

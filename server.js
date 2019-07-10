@@ -9,7 +9,7 @@ app.get('/clean', emp.cleanData);
 app.post('/post', emp.addEmp);
 app.post('/postCategorie', emp.addCat);
 app.put('/employee/:id', emp.updateEmp);
-app.get('/employee/:Datum', emp.findByDate);
+app.get('/employeeed', emp.findByDate);
 app.delete('/employee/:id', emp.deleteEmp);
 app.listen(3000);
 console.log('Listening on port 3000...');
@@ -19,6 +19,7 @@ var Server = mongo.Server,
     BSON = mongo.BSONPure;
 var server = new Server('localhost', 27017, {auto_reconnect: true});
 db = new Db('local', server);
+db.createCollection('BankZaken');
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'empdb' database");
